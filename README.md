@@ -49,8 +49,9 @@ Este repositório apresenta as soluções desenvolvidas para o teste técnico da
 
 ## 🧩 Desafios
 
-### 🔹 Desafio 1 – Perfil dos Inadimplentes  
-📄 [Query SQL](queries/desafio_1.sql) | 📊 [Análise e Insights](insights/desafio_1.md)
+### 🔹 Desafio 1 – Perfil dos Inadimplentes 
+📄[Query SQL]([queries/desafio_3.sql](https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/main/refined_query_desafio)) | 📊 [Tabela Criada]((https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/main/bq-results-20250406-150135-1743951771621.csv))
+
 
 > Objetivo: Compreender o perfil dos clientes inadimplentes com base em movimentações financeiras.
 
@@ -65,7 +66,6 @@ Este repositório apresenta as soluções desenvolvidas para o teste técnico da
 
 ### 🔹 Desafio 3 – Estratégias para Redução de Inadimplência  
 📄 [Query SQL](queries/desafio_3.sql) | 📊 [Análise e Insights](insights/desafio_3.md)
-
 > Objetivo: Propor ações baseadas em dados para reduzir a inadimplência no portfólio.
 
 ---
