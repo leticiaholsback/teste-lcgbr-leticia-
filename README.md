@@ -118,38 +118,6 @@ Um dashboard no **Looker Studio (ex-Data Studio)** foi criado para apresentar:
 
 ---
 
-## ✅ Conclusão
-
-Todas as etapas foram realizadas conforme solicitado, com atenção ao detalhamento da base de dados, limpeza, enriquecimento, criação de métricas e preparação para visualização. A entrega final permite fácil replicação e leitura dos dados por áreas técnicas e de negócios.
-
----
-
-
-## 📈 Dashboard
-
-O dashboard desenvolvido apresenta:
-
-- Evolução do saldo das contas ao longo do tempo.
-- Análise detalhada das transações PIX.
-- Identificação de padrões e possíveis anomalias nos dados.
-
-## 📝 Observações
-
-- Os dados utilizados são fictícios e foram fornecidos exclusivamente para fins deste teste técnico.
-- As análises e insights apresentados refletem as técnicas e abordagens adotadas durante o desenvolvimento do teste.
-
-## 📧 Contato
-
-Para mais informações ou dúvidas, entre em contato:
-
-- **Nome**: Letícia dos Santos
-- **E-mail**: [leticiaholsback@gmail.com)
-- **LinkedIn**: [https://www.linkedin.com/in/leticia-santos-33a15a150/)
-
----
-
-*Este repositório foi desenvolvido como parte do processo seletivo para a posição de Analista de Dados Jr. na LCGBR.*
-
 🧩 Desafios
 ### Desafio 1 – Obter saldo mensal das contas
 
@@ -157,7 +125,7 @@ Para mais informações ou dúvidas, entre em contato:
 [query1_BusinessContext2](https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/e4747cc62cf543614b66fbac8222d70859780e50/2.query1_%20BusinessContext2)
 
 📊 **Tabela refinada gerada:**  
-[bq-results-20250406-150135-1743951771621.csv](https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/main/refined_query_Contexto_de_Neg%C3%B3cio_1/bq-results-20250406-150135-1743951771621.csv)
+[bq-results-20250406-150135-1743951771621.csv](https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/f12515fcd90fd31f0ca35643c3ebb310a6cbca43/leticia.account_monthly_balance.csv)
 
 Essa tabela contém o saldo mensal agregado por conta, conforme solicitado no Desafio 1.
 
@@ -176,13 +144,33 @@ Objetivo: Sugerir e construir um conjunto de métricas que possibilitem o acompa
 
 ---
 
-## 📌 Considerações Finais
+## 📈 Dashboard
 
-Essa foi uma experiência valiosa, permitindo aplicar na prática conceitos de análise de dados com foco em impacto nos negócios.  
-Acredito que dados bem tratados e interpretados são a chave para decisões estratégicas mais inteligentes.
+O dashboard desenvolvido apresenta:
 
-
+- Evolução do saldo das contas ao longo do tempo.
+- Análise detalhada das transações PIX.
+- Identificação de padrões e possíveis anomalias nos dados.
 
 ---
+
+## 📝 Observações
+
+- Os dados utilizados são fictícios e foram fornecidos exclusivamente para fins deste teste técnico.
+- As análises e insights apresentados refletem as técnicas e abordagens adotadas durante o desenvolvimento do teste.
+
+---
+
+## 📧 Contato
+
+Para mais informações ou dúvidas, entre em contato:
+
+- **Nome**: Letícia dos Santos
+- **E-mail**: [leticiaholsback@gmail.com)
+- **LinkedIn**: [https://www.linkedin.com/in/leticia-santos-33a15a150/)
+
+---
+
+*Este repositório foi desenvolvido como parte do processo seletivo para a posição de Analista de Dados Jr. na LCGBR.*
 
 
