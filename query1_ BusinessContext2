@@ -1,0 +1,80 @@
+# Análise de Transferências PIX (Saídas)
+
+Fiz uma SQL foi criada para analisar as transferências de PIX de saída, trazendo uma visão mensal sobre volume transacionado, número de contas envolvidas e tendências ao longo do tempo.
+Aqui é possível  entender como as movimentações evoluem mês a mês, a média dos últimos 3 meses e comparar com o mês anterior, o que pode ser bastante útil em relatórios financeiros e tomadas de decisão. Dá para adaptar a lógica para entradas (pix_in), ou até comparar pix_in vs pix_out.
+
+Então fiz essa query para consultar: 
+WITH base AS (
+  SELECT
+    EXTRACT(YEAR FROM pix_completed_at) AS ano,
+    EXTRACT(MONTH FROM pix_completed_at) AS mes,
+    account_id,
+    pix_amount
+  FROM `teste-lcgbr-leticia.trusted_testelcgbrleticia.trusted_pix_movements`
+  WHERE in_or_out = 'pix_out'
+),
+
+aggregated AS (
+  SELECT
+    ano,
+    mes,
+    COUNT(DISTINCT account_id) AS contas_envolvidas,
+    COUNT(*) AS quantidade_transferencias,
+    SUM(pix_amount) AS valor_total_transferencias
+  FROM base
+  GROUP BY ano, mes
+),
+
+comparado AS (
+  SELECT
+    *,
+    LAG(valor_total_transferencias, 1) OVER (ORDER BY ano, mes) AS valor_L1M,
+    ROUND(AVG(valor_total_transferencias) OVER (
+      ORDER BY ano, mes ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2
+    ) AS media_L3M
+  FROM aggregated
+)
+
+SELECT * FROM comparado
+ORDER BY ano, mes;
+
+_________________________________________________
+
+Aqui, criei uma tabela para a trusted
+CREATE OR REPLACE TABLE `teste-lcgbr-leticia.trusted_testelcgbrleticia.trusted_pix_aggregated`
+AS
+
+WITH base AS (
+  SELECT
+    EXTRACT(YEAR FROM pix_completed_at) AS ano,
+    EXTRACT(MONTH FROM pix_completed_at) AS mes,
+    account_id,
+    pix_amount
+  FROM `teste-lcgbr-leticia.trusted_testelcgbrleticia.trusted_pix_movements`
+  WHERE in_or_out = 'pix_out'
+),
+
+aggregated AS (
+  SELECT
+    ano,
+    mes,
+    COUNT(DISTINCT account_id) AS contas_envolvidas,
+    COUNT(*) AS quantidade_transferencias,
+    SUM(pix_amount) AS valor_total_transferencias
+  FROM base
+  GROUP BY ano, mes
+),
+
+comparado AS (
+  SELECT
+    *,
+    LAG(valor_total_transferencias, 1) OVER (ORDER BY ano, mes) AS valor_L1M,
+    ROUND(AVG(valor_total_transferencias) OVER (
+      ORDER BY ano, mes ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2
+    ) AS media_L3M
+  FROM aggregated
+)
+
+SELECT * FROM comparado
+ORDER BY ano, mes;
+
