@@ -1,0 +1,81 @@
+CREATE OR REPLACE TABLE `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.account_monthly_balance` AS
+
+WITH pix_movimentos AS (
+  SELECT
+    account_id,
+    EXTRACT(YEAR FROM pix_completed_at) AS ano,
+    EXTRACT(MONTH FROM pix_completed_at) AS mes,
+    SUM(CASE WHEN in_or_out = 'pix_in' THEN pix_amount ELSE 0 END) AS pix_recebido,
+    SUM(CASE WHEN in_or_out = 'pix_out' THEN pix_amount ELSE 0 END) AS pix_enviado
+  FROM `teste-lcgbr-leticia.trusted_testelcgbrleticia.trusted_pix_movements`
+  WHERE status = 'completed'
+  GROUP BY account_id, ano, mes
+),
+
+transferencias AS (
+  SELECT
+    account_id,
+    EXTRACT(YEAR FROM transaction_completed_at) AS ano,
+    EXTRACT(MONTH FROM transaction_completed_at) AS mes,
+    SUM(amount) AS valor,
+    'in' AS tipo
+  FROM `teste-lcgbr-leticia.trusted_testelcgbrleticia.trusted_transfer_ins`
+  WHERE status = 'completed'
+  GROUP BY account_id, ano, mes
+
+  UNION ALL
+
+  SELECT
+    account_id,
+    EXTRACT(YEAR FROM transaction_completed_at) AS ano,
+    EXTRACT(MONTH FROM transaction_completed_at) AS mes,
+    SUM(amount) AS valor,
+    'out' AS tipo
+  FROM `teste-lcgbr-leticia.trusted_testelcgbrleticia.trusted_transfer_outs`
+  WHERE status = 'completed'
+  GROUP BY account_id, ano, mes
+),
+
+movimentacoes_mensais AS (
+  SELECT
+    t.account_id,
+    t.ano,
+    t.mes,
+    SUM(CASE WHEN t.tipo = 'in' THEN t.valor ELSE 0 END) AS transfer_in,
+    SUM(CASE WHEN t.tipo = 'out' THEN t.valor ELSE 0 END) AS transfer_out,
+    IFNULL(p.pix_recebido, 0) AS pix_in,
+    IFNULL(p.pix_enviado, 0) AS pix_out
+  FROM transferencias t
+  LEFT JOIN pix_movimentos p
+    ON t.account_id = p.account_id AND t.ano = p.ano AND t.mes = p.mes
+  GROUP BY t.account_id, t.ano, t.mes, p.pix_recebido, p.pix_enviado
+),
+
+saldos_com_acumulado AS (
+  SELECT
+    account_id,
+    ano,
+    mes,
+    transfer_in,
+    transfer_out,
+    pix_in,
+    pix_out,
+    (transfer_in + pix_in) - (transfer_out + pix_out) AS saldo_mes
+  FROM movimentacoes_mensais
+),
+
+saldos_final AS (
+  SELECT
+    account_id,
+    FORMAT_DATE('%Y-%m', DATE_FROM_UNIX_DATE(0) + INTERVAL (ano * 12 + mes - 1) MONTH) AS mes_ano,
+    transfer_in,
+    transfer_out,
+    pix_in,
+    pix_out,
+    saldo_mes,
+    SUM(saldo_mes) OVER (PARTITION BY account_id ORDER BY ano, mes ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS saldo_acumulado
+  FROM saldos_com_acumulado
+)
+
+SELECT * FROM saldos_final
+ORDER BY account_id, mes_ano;
