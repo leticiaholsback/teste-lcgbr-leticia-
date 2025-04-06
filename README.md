@@ -151,11 +151,16 @@ Para mais informações ou dúvidas, entre em contato:
 *Este repositório foi desenvolvido como parte do processo seletivo para a posição de Analista de Dados Jr. na LCGBR.*
 
 🧩 Desafios
-🔹 Desafio 1 – Obter saldo mensal das contas
-📄 Query SQL
-📊 Tabela Criada
+### Desafio 1 – Obter saldo mensal das contas
 
-Objetivo: Gerar uma tabela com o saldo mensal de cada conta, utilizando a movimentação via PIX como base.
+📄 **Query SQL:**  
+[query1_BusinessContext2](https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/e4747cc62cf543614b66fbac8222d70859780e50/2.query1_%20BusinessContext2)
+
+📊 **Tabela refinada gerada:**  
+[bq-results-20250406-150135-1743951771621.csv](https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/main/refined_query_Contexto_de_Neg%C3%B3cio_1/bq-results-20250406-150135-1743951771621.csv)
+
+Essa tabela contém o saldo mensal agregado por conta, conforme solicitado no Desafio 1.
+
 
 🔹 Desafio 2 – Criar análise de performance utilizando janela deslizante (sliding window)
 📄 Query SQL
