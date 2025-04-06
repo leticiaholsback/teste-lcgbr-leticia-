@@ -1,0 +1,11 @@
+Link do GCP: https://console.cloud.google.com/ na minha conta: leticiaholsback@gmail.com
+
+ "Selecionar projeto" > "+ Novo projeto" > Nome do projeto: "teste lcgbr leticia"  > Organização: “Sem organização” -> "Criado!"
+
+    -------
+    
+No Big Query criei a camada raw, onde nomeei como: teste_lcgbr_dataset
+
+ID do conjunto de dados: teste_lcgbr_dataset -> Localização: us (padrão)
+
+
