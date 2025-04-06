@@ -134,7 +134,7 @@ Essa tabela contém o saldo mensal agregado por conta, conforme solicitado no De
 ### 🔹 Desafio 2 – Criar análise de performance utilizando janela deslizante (sliding window)
 
 📄 **Query SQL**: [5.query_slidingWindow](https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/ecf49ffdf8c5dd9ae68440e27262e610871d09a9/5.query_slidingWindow)  
-📊 **Tabela Criada**: `refined_teste_lcgbr_leticia.sliding_window_calculations`
+📊 **Tabela Criada**: [leticia.sliding_window_calculations.csv](https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/ad7b2f7cfd921e3456cf76ab4e078f7bda546bc7/leticia.sliding_window_calculations.csv)
 
 **Objetivo:**  
 Criar indicadores de performance com base em janelas móveis (sliding windows) de 1 e 3 meses, utilizando transações PIX.
