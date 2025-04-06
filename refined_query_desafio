@@ -1,3 +1,36 @@
+Aqui, estruturei a primeira tabela na refined, com base nessa etapa do Desafio: 
+*Business Context 1
+To solve this case you need to be familiar with the concept of "Account Monthly
+Balance". Account Monthly Balance is the amount of money a customer had in
+their account at the end of a given month. This information can be calculated by
+adding all the transfers in and subtracting all the transfers out from the previous
+Figure 2. A slice of the table structure from the DW Environment (diagram/table_diagram.png).
+You can check the code used to generate these diagrams using dbdiagram.io on file
+(diagram/table_diagram.txt).
+Analista de dados Jr. 4
+account balance. Remember you should also consider transfers made by PIX, the
+newest Brazilian transfer method. You can see an example below:*
+
+Criei uma QUERY que trouxesse o saldo acumulado mês a mês, a regra de negócio aplicada foi:
+*pix_movimentos: agrega pix recebidos e enviados por mês.
+
+*transferencias: agrega transferências de entrada e saída.
+
+*movimentacoes_mensais: une as duas fontes.
+
+*saldos_com_acumulado: calcula o saldo líquido do mês.
+
+*saldos_final: acumula o saldo mês a mês com SUM(...) OVER (...).
+
+Também tratei as colunas: transfer_in, transfer_out, pix_in, pix_out, saldo_mes, saldo_acumulado para uma visão com ROUND(valor, 2) trazendo dois números após o .
+Eu precisei tratar a coluna mes_ano, com DATE_FROM_PARTS(ano, mes, 1) pra montar uma data certinha, e depois aplicar FORMAT_DATE('%Y-%m', ...) pois estava aparecendo uma data sem sentido
+
+Com isso, deixei a tabela gerada conforme o desafio e posso também conecta-la ao Data Studio (Looker Studio)
+
+Segue o link da tabela: https://drive.google.com/file/d/1LJaknibueV7oAa3Il_2OIa4DBlLXf8c_/view?usp=sharing
+
+________________________________________________________________________________________________________________
+
 CREATE OR REPLACE TABLE `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.account_monthly_balance` AS
 
 WITH pix_movimentos AS (
