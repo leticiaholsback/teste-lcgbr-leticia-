@@ -60,7 +60,7 @@ Este repositório apresenta as soluções desenvolvidas para o teste técnico da
 ---
 
 ### 🔹 Desafio 3 – Estratégias para Redução de Inadimplência  
-📄 [Query SQL](queries/desafio_3.sql) | 📊 [Análise e Insights](insights/desafio_3.md)
+📄 (https://lookerstudio.google.com/reporting/9c002d4c-dc7b-4127-9834-853662ba9426)
 > Objetivo: Propor ações baseadas em dados para reduzir a inadimplência no portfólio.
 
 ---
@@ -70,7 +70,7 @@ Este repositório apresenta as soluções desenvolvidas para o teste técnico da
 Essa foi uma experiência valiosa, permitindo aplicar na prática conceitos de análise de dados com foco em impacto nos negócios.  
 Acredito que dados bem tratados e interpretados são a chave para decisões estratégicas mais inteligentes.
 
-Estou animada para contribuir com a equipe da **LCGBR**!
+
 
 ---
 
