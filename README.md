@@ -1,4 +1,5 @@
 # Teste Técnico – Analista de Dados | Letícia dos Santos
+  # 📊 Account Monthly Balance Analysis
 
 Este repositório apresenta as soluções desenvolvidas para o teste técnico da LCGBR, utilizando a plataforma Google BigQuery. O foco foi analisar dados relacionados à inadimplência e comportamento de clientes.
 
@@ -7,6 +8,32 @@ Este repositório apresenta as soluções desenvolvidas para o teste técnico da
 - Google Cloud Platform (BigQuery)
 - SQL
 - Git e GitHub
+- Looker Studio
+
+## 🔄 Camadas de Dados
+
+- **Raw:** Dados brutos diretamente extraídos do Data Warehouse.
+- **Trusted:** Dados com tratamento de tipos e limpeza de registros inconsistentes.
+- **Refined:** Métricas e KPIs calculados prontos para análise.
+
+## 🧪 Estrutura
+
+- SQLs disponíveis em `/queries`
+- Diagrama de tabelas em `/assets`
+
+## 🔧 Ferramentas
+
+- BigQuery (SQL)
+- Google Cloud Platform
+- GitHub
+- Looker Studio (para visualizações)
+
+## 📂 Dataset
+
+- Projeto GCP: `teste-lcgbr-leticia`
+- Dataset Raw: `testelcgbrleticia`
+- Dataset Trusted: `trusted_testelcgbrleticia`
+
 
 ## 📁 Estrutura
 
