@@ -143,14 +143,25 @@ Criar indicadores de performance com base em janelas móveis (sliding windows) d
 A query utiliza funções de janela (`SUM(...) OVER (...)`) para calcular, por `account_id` e `account_type`, a soma dos valores e a contagem das transações PIX nos últimos 1 e 3 meses, com base no campo `pix_month`.
 
 ---
+---
 
-🔹 Desafio 3 – Propor métricas para acompanhamento da performance do PIX
-📄 Query SQL - Métricas por ID
-📊 Tabela Criada
+### 🔹 Desafio 3 – Criar resumo mensal das transações PIX
 
-Objetivo: Sugerir e construir um conjunto de métricas que possibilitem o acompanhamento da performance do PIX entre os clientes.
+📄 **Query SQL**: [3.query_refined_pix_summary](https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/main/3.query_refined_pix_summary)  
+📊 **Tabela Criada**: [leticia.refined_pix_summary.csv](https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/958d18e539afe0148fd2cbc8f55338f273925ecd/leticia.refined_pix_summary.csv)
+
+**Objetivo:**  
+Consolidar as transações PIX em um resumo por mês, calculando:
+
+- Total de transações (`pix_count`)
+- Soma total dos valores transacionados (`total_pix_value`)
+- Valor médio por transação (`avg_pix_value`)
+
+**Resumo da lógica:**  
+A query agrupa os dados por `pix_month` e aplica funções de agregação (`COUNT`, `SUM` e `AVG`) para gerar o resumo mensal das movimentações realizadas via PIX.
 
 ---
+
 
 ## 📈 Dashboard
 
