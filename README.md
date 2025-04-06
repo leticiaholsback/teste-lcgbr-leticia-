@@ -162,14 +162,17 @@ A query agrupa os dados por `pix_month` e aplica funções de agregação (`COUN
 
 ---
 
-
 ## 📈 Dashboard
 
-O dashboard desenvolvido apresenta:
+O dashboard desenvolvido apresenta uma visão interativa dos principais indicadores gerados ao longo do projeto:
 
-- Evolução do saldo das contas ao longo do tempo.
-- Análise detalhada das transações PIX.
-- Identificação de padrões e possíveis anomalias nos dados.
+🔗 [Acesse aqui o Dashboard no Looker Studio](https://lookerstudio.google.com/reporting/9c002d4c-dc7b-4127-9834-853662ba9426)
+
+### Principais insights:
+
+- 📊 Evolução do saldo das contas ao longo do tempo  
+- 🔍 Análise detalhada das transações PIX  
+- ⚠️ Identificação de padrões e possíveis anomalias nos dados  
 
 ---
 
