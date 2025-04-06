@@ -67,15 +67,16 @@ saldos_com_acumulado AS (
 saldos_final AS (
   SELECT
     account_id,
-    FORMAT_DATE('%Y-%m', DATE_FROM_UNIX_DATE(0) + INTERVAL (ano * 12 + mes - 1) MONTH) AS mes_ano,
-    transfer_in,
-    transfer_out,
-    pix_in,
-    pix_out,
-    saldo_mes,
-    SUM(saldo_mes) OVER (PARTITION BY account_id ORDER BY ano, mes ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS saldo_acumulado
+    FORMAT_DATE('%Y-%m', DATE(ano, mes, 1)) AS mes_ano,
+    ROUND(transfer_in, 2) AS transfer_in,
+    ROUND(transfer_out, 2) AS transfer_out,
+    ROUND(pix_in, 2) AS pix_in,
+    ROUND(pix_out, 2) AS pix_out,
+    ROUND(saldo_mes, 2) AS saldo_mes,
+    ROUND(SUM(saldo_mes) OVER (PARTITION BY account_id ORDER BY ano, mes ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW), 2) AS saldo_acumulado
   FROM saldos_com_acumulado
 )
 
 SELECT * FROM saldos_final
 ORDER BY account_id, mes_ano;
+
