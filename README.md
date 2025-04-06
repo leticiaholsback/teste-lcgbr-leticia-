@@ -129,12 +129,20 @@ Um dashboard no **Looker Studio (ex-Data Studio)** foi criado para apresentar:
 
 Essa tabela contém o saldo mensal agregado por conta, conforme solicitado no Desafio 1.
 
+---
 
-🔹 Desafio 2 – Criar análise de performance utilizando janela deslizante (sliding window)
-📄 Query SQL
-📊 Tabela Criada
+### 🔹 Desafio 2 – Criar análise de performance utilizando janela deslizante (sliding window)
 
-Objetivo: Criar indicadores de performance considerando janelas móveis de 1 e 3 meses.
+📄 **Query SQL**: [5.query_slidingWindow](https://github.com/leticiaholsback/teste-lcgbr-leticia-/blob/ecf49ffdf8c5dd9ae68440e27262e610871d09a9/5.query_slidingWindow)  
+📊 **Tabela Criada**: `refined_teste_lcgbr_leticia.sliding_window_calculations`
+
+**Objetivo:**  
+Criar indicadores de performance com base em janelas móveis (sliding windows) de 1 e 3 meses, utilizando transações PIX.
+
+**Resumo da lógica:**  
+A query utiliza funções de janela (`SUM(...) OVER (...)`) para calcular, por `account_id` e `account_type`, a soma dos valores e a contagem das transações PIX nos últimos 1 e 3 meses, com base no campo `pix_month`.
+
+---
 
 🔹 Desafio 3 – Propor métricas para acompanhamento da performance do PIX
 📄 Query SQL - Métricas por ID
