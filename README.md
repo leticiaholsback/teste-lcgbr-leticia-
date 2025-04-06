@@ -17,7 +17,7 @@ Este repositório apresenta as soluções desenvolvidas para o teste técnico da
 
 ## 🔄 Camadas de Dados
 
-- **Raw** → teste-lcgbr-leticia.testelcgbrleticia (Dados brutos extraídos diretamente da fonte)
+- **Raw** → teste-lcgbr-leticia.testelcgbrleticia (Dados brutos extraídos diretamente da fonte)-
 
 - **Trusted** → teste-lcgbr-leticia.trusted_testelcgbrleticia (Dados com tratamento de tipagem e limpeza de registros)
 
@@ -39,13 +39,6 @@ Este repositório apresenta as soluções desenvolvidas para o teste técnico da
 ├── assets/              # Diagramas e imagens de apoio
 └── README.md            # Documentação principal do projeto
 ````
----
-
-## 📂 Datasets Utilizados
-
-- **Projeto GCP:** `teste-lcgbr-leticia`
-- **Dataset Raw:** `testelcgbrleticia`
-- **Dataset Trusted:** `trusted_testelcgbrleticia`
 
 ---
 
