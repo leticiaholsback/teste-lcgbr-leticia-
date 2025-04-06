@@ -1,0 +1,64 @@
+Nessa consulta, criei a tabela teste-lcgbr-leticia.refined_teste_lcgbr_leticia.sliding_window_calculations
+onde calcula o valor e a quantidade de transações PIX feitas por cada conta, considerando janelas móveis de 1 e 3 meses 
+Para cada linha, ela retorna:
+A soma dos valores e quantidades de transações PIX:
+Nos últimos 1 mês
+Nos últimos 3 meses
+Os dados são particionados por account_id e account_type, e ordenados por pix_month.
+
+--------
+CREATE OR REPLACE TABLE `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.sliding_window_calculations` AS
+SELECT 
+  account_id,
+  account_type,
+  pix_month,
+  SUM(pix_value) OVER (
+    PARTITION BY account_id, account_type
+    ORDER BY pix_month
+    RANGE BETWEEN INTERVAL 1 MONTH PRECEDING AND CURRENT ROW
+  ) AS pix_value_last_1_month,
+  SUM(pix_qtd) OVER (
+    PARTITION BY account_id, account_type
+    ORDER BY pix_month
+    RANGE BETWEEN INTERVAL 1 MONTH PRECEDING AND CURRENT ROW
+  ) AS pix_qtd_last_1_month,
+  SUM(pix_value) OVER (
+    PARTITION BY account_id, account_type
+    ORDER BY pix_month
+    RANGE BETWEEN INTERVAL 3 MONTH PRECEDING AND CURRENT ROW
+  ) AS pix_value_last_3_months,
+  SUM(pix_qtd) OVER (
+    PARTITION BY account_id, account_type
+    ORDER BY pix_month
+    RANGE BETWEEN INTERVAL 3 MONTH PRECEDING AND CURRENT ROW
+  ) AS pix_qtd_last_3_months
+FROM `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.refined_pix_metrics_by_id`;
+
+
+--------
+ESQUEMA
+
+id
+INTEGER	
+month
+STRING	
+account_id
+INTEGER	
+quantidade_transacoes
+INTEGER
+valor_total
+FLOAT	
+number_of_accounts
+INTEGER
+number_of_transfers
+INTEGER	
+amount_of_transfers
+FLOAT	
+pct_l1m_number_of_transfers
+FLOAT	
+pct_l3m_avg_number_of_transfers
+FLOAT
+pct_l1m_number_of_accounts
+FLOAT
+pct_l3m_avg_number_of_accounts
+FLOAT
