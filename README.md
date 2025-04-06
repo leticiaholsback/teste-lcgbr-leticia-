@@ -17,9 +17,11 @@ Este repositório apresenta as soluções desenvolvidas para o teste técnico da
 
 ## 🔄 Camadas de Dados
 
-- **Raw:** Dados brutos extraídos diretamente da fonte (Data Warehouse).
-- **Trusted:** Dados com tratamento de tipos, normalizações e limpeza de registros inconsistentes.
-- **Refined:** Métricas e KPIs calculados e prontos para consumo analítico.
+- **Raw** → teste-lcgbr-leticia.testelcgbrleticia (Dados brutos extraídos diretamente da fonte)
+
+- **Trusted** → teste-lcgbr-leticia.trusted_testelcgbrleticia (Dados com tratamento de tipagem e limpeza de registros)
+
+- **Refined**  → teste-lcgbr-leticia.refined_teste_lcgbr_leticia (Métricas e KPIs calculados e prontos para consumo no DataStudio e com aplicações dos contextos do teste)
 
 ---
 
