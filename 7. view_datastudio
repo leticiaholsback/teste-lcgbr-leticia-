@@ -11,43 +11,69 @@ Estrutura das tabelas envolvidas:
 
 CREATE OR REPLACE VIEW `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.view_relatorio_unificado` AS
 
+WITH base AS (
+  SELECT
+    s.account_id,
+    s.ano,
+    s.mes,
+    DATE(PARSE_DATE('%Y-%m', CONCAT(CAST(s.ano AS STRING), '-', LPAD(CAST(s.mes AS STRING), 2, '0')))) AS data_formatada,
+    CONCAT(CAST(s.ano AS STRING), '-', LPAD(CAST(s.mes AS STRING), 2, '0')) AS ano_mes,
+    s.in_or_out,
+    s.valor_total AS resumo_valor_total,
+    s.quantidade_transacoes AS resumo_qtd_transacoes,
+
+    b.total_pix_in,
+    b.total_pix_out,
+    b.saldo_mensal,
+
+    m.pix_amount AS metrica_pix_amount,
+    m.pct_valor_por_tipo_mes,
+    m.rank_valor_mes,
+    m.desvio_valor_medio_mes,
+    m.total_transacoes_conta_mes,
+    m.total_valor_conta_mes,
+
+    w.quantidade_transacoes AS window_qtd_transacoes,
+    w.valor_total AS window_valor_total,
+    w.number_of_accounts,
+    w.number_of_transfers,
+    w.amount_of_transfers
+  FROM `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.refined_pix_summary` s
+
+  LEFT JOIN `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.account_monthly_balance` b
+    ON s.account_id = b.account_id AND s.ano = b.ano AND s.mes = b.mes
+
+  LEFT JOIN `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.refined_pix_metrics_by_id` m
+    ON s.account_id = m.account_id AND s.ano = m.ano AND s.mes = m.mes AND s.in_or_out = m.in_or_out
+
+  LEFT JOIN `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.sliding_window_calculations` w
+    ON s.account_id = w.account_id AND CONCAT(CAST(s.ano AS STRING), '-', LPAD(CAST(s.mes AS STRING), 2, '0')) = w.month
+)
+
 SELECT
-  s.account_id,
-  s.ano,
-  s.mes,
-  CONCAT(CAST(s.ano AS STRING), '-', LPAD(CAST(s.mes AS STRING), 2, '0')) AS ano_mes,
-  s.in_or_out,
-  s.valor_total AS resumo_valor_total,
-  s.quantidade_transacoes AS resumo_qtd_transacoes,
+  *,
+  
+  -- % L-M (último mês)
+  SAFE_DIVIDE(
+    number_of_transfers - LAG(number_of_transfers) OVER (PARTITION BY account_id ORDER BY data_formatada),
+    LAG(number_of_transfers) OVER (PARTITION BY account_id ORDER BY data_formatada)
+  ) * 100 AS pct_l1m_number_of_transfers,
 
-  b.total_pix_in,
-  b.total_pix_out,
-  b.saldo_mensal,
+  SAFE_DIVIDE(
+    number_of_accounts - LAG(number_of_accounts) OVER (PARTITION BY account_id ORDER BY data_formatada),
+    LAG(number_of_accounts) OVER (PARTITION BY account_id ORDER BY data_formatada)
+  ) * 100 AS pct_l1m_number_of_accounts,
 
-  m.pix_amount AS metrica_pix_amount,
-  m.pct_valor_por_tipo_mes,
-  m.rank_valor_mes,
-  m.desvio_valor_medio_mes,
-  m.total_transacoes_conta_mes,
-  m.total_valor_conta_mes,
+  -- % vs média dos últimos 3 meses (L-3M)
+  SAFE_DIVIDE(
+    number_of_transfers - AVG(number_of_transfers) OVER (PARTITION BY account_id ORDER BY data_formatada ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING),
+    AVG(number_of_transfers) OVER (PARTITION BY account_id ORDER BY data_formatada ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING)
+  ) * 100 AS pct_l3m_avg_number_of_transfers,
 
-  w.quantidade_transacoes AS window_qtd_transacoes,
-  w.valor_total AS window_valor_total,
-  w.number_of_accounts,
-  w.number_of_transfers,
-  w.amount_of_transfers,
-  w.pct_l1m_number_of_transfers,
-  w.pct_l3m_avg_number_of_transfers,
-  w.pct_l1m_number_of_accounts,
-  w.pct_l3m_avg_number_of_accounts
+  SAFE_DIVIDE(
+    number_of_accounts - AVG(number_of_accounts) OVER (PARTITION BY account_id ORDER BY data_formatada ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING),
+    AVG(number_of_accounts) OVER (PARTITION BY account_id ORDER BY data_formatada ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING)
+  ) * 100 AS pct_l3m_avg_number_of_accounts
 
-FROM `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.refined_pix_summary` s
+FROM base;
 
-LEFT JOIN `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.account_monthly_balance` b
-  ON s.account_id = b.account_id AND s.ano = b.ano AND s.mes = b.mes
-
-LEFT JOIN `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.refined_pix_metrics_by_id` m
-  ON s.account_id = m.account_id AND s.ano = m.ano AND s.mes = m.mes AND s.in_or_out = m.in_or_out
-
-LEFT JOIN `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.sliding_window_calculations` w
-  ON s.account_id = w.account_id AND CONCAT(CAST(s.ano AS STRING), '-', LPAD(CAST(s.mes AS STRING), 2, '0')) = w.month
