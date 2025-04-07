@@ -173,6 +173,8 @@ O dashboard desenvolvido no **Looker Studio **
 
 ![Página 2](https://github.com/leticiaholsback/teste-lcgbr-leticia-/raw/c6734c0d775b1553a374f1ed40a10d8cd8d961cd/LCGBR_leticis_pag2.jpg)
 
+🔗 **Acesse o dashboard aqui:** [Dashboard no Looker Studio](https://lookerstudio.google.com/reporting/https://lookerstudio.google.com/s/lgUww8KXgyM)
+
 ---
 
 ## 📝 Observações
