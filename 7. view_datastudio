@@ -1,0 +1,53 @@
+Criei uma view que junta as tabelas usando chaves naturais (account_id, ano, mes, in_or_out)
+
+Estrutura das tabelas envolvidas:
+-> pix_refined	account_id, ano, mes, in_or_out, pix_amount, ...	transacional
+-> account_monthly_balance	account_id, ano, mes, saldo_mensal	mensal por conta
+-> refined_pix_metrics_by_id	account_id, ano, mes, in_or_out, pix_amount, métricas	mensal por conta/tipo
+-> refined_pix_summary	account_id, ano, mes, in_or_out, valor_total, quantidade_transacoes	mensal por conta/tipo
+-> sliding_window_calculations	account_id, month, métricas	mensal por conta (com month)
+
+-----------
+
+CREATE OR REPLACE VIEW `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.view_relatorio_unificado` AS
+
+SELECT
+  s.account_id,
+  s.ano,
+  s.mes,
+  CONCAT(CAST(s.ano AS STRING), '-', LPAD(CAST(s.mes AS STRING), 2, '0')) AS ano_mes,
+  s.in_or_out,
+  s.valor_total AS resumo_valor_total,
+  s.quantidade_transacoes AS resumo_qtd_transacoes,
+
+  b.total_pix_in,
+  b.total_pix_out,
+  b.saldo_mensal,
+
+  m.pix_amount AS metrica_pix_amount,
+  m.pct_valor_por_tipo_mes,
+  m.rank_valor_mes,
+  m.desvio_valor_medio_mes,
+  m.total_transacoes_conta_mes,
+  m.total_valor_conta_mes,
+
+  w.quantidade_transacoes AS window_qtd_transacoes,
+  w.valor_total AS window_valor_total,
+  w.number_of_accounts,
+  w.number_of_transfers,
+  w.amount_of_transfers,
+  w.pct_l1m_number_of_transfers,
+  w.pct_l3m_avg_number_of_transfers,
+  w.pct_l1m_number_of_accounts,
+  w.pct_l3m_avg_number_of_accounts
+
+FROM `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.refined_pix_summary` s
+
+LEFT JOIN `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.account_monthly_balance` b
+  ON s.account_id = b.account_id AND s.ano = b.ano AND s.mes = b.mes
+
+LEFT JOIN `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.refined_pix_metrics_by_id` m
+  ON s.account_id = m.account_id AND s.ano = m.ano AND s.mes = m.mes AND s.in_or_out = m.in_or_out
+
+LEFT JOIN `teste-lcgbr-leticia.refined_teste_lcgbr_leticia.sliding_window_calculations` w
+  ON s.account_id = w.account_id AND CONCAT(CAST(s.ano AS STRING), '-', LPAD(CAST(s.mes AS STRING), 2, '0')) = w.month
