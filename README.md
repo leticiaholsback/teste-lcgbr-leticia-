@@ -164,15 +164,21 @@ A query agrupa os dados por `pix_month` e aplica funções de agregação (`COUN
 
 ## 📈 Dashboard
 
-O dashboard desenvolvido apresenta uma visão interativa dos principais indicadores gerados ao longo do projeto:
+O dashboard desenvolvido no Looker Studio
 
-🔗 [Acesse aqui o Dashboard no Looker Studio](https://lookerstudio.google.com/reporting/9c002d4c-dc7b-4127-9834-853662ba9426)
+### 🔹 Funcionalidades:
 
-### Principais insights:
+- Evolução mensal das transações PIX (entrada e saída)
+- Comparativo entre contas e variações de comportamento
+- Detecção de outliers com base em desvio padrão
+- Filtros interativos por:
+  - Tipo de transação (`pix_in`, `pix_out`)
+  - Status da transação (`completed`, `failed`, etc.)
+  - Mês
+  - Conta (`account_id`)
 
-- 📊 Evolução do saldo das contas ao longo do tempo  
-- 🔍 Análise detalhada das transações PIX  
-- ⚠️ Identificação de padrões e possíveis anomalias nos dados  
+🔗 **Acesse o dashboard aqui:** [Dashboard no Looker Studio](https://lookerstudio.google.com/reporting/https://lookerstudio.google.com/s/lr19b-UNOIQ)
+
 
 ---
 
