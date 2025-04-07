@@ -143,7 +143,6 @@ Criar indicadores de performance com base em janelas móveis (sliding windows) d
 A query utiliza funções de janela (`SUM(...) OVER (...)`) para calcular, por `account_id` e `account_type`, a soma dos valores e a contagem das transações PIX nos últimos 1 e 3 meses, com base no campo `pix_month`.
 
 ---
----
 
 ### 🔹 Desafio 3 – Criar resumo mensal das transações PIX
 
@@ -164,21 +163,15 @@ A query agrupa os dados por `pix_month` e aplica funções de agregação (`COUN
 
 ## 📈 Dashboard
 
-O dashboard desenvolvido no Looker Studio
+O dashboard desenvolvido no **Looker Studio **
 
-### 🔹 Funcionalidades:
+### 🖼️ Página 1 do Dashboard
 
-- Evolução mensal das transações PIX (entrada e saída)
-- Comparativo entre contas e variações de comportamento
-- Detecção de outliers com base em desvio padrão
-- Filtros interativos por:
-  - Tipo de transação (`pix_in`, `pix_out`)
-  - Status da transação (`completed`, `failed`, etc.)
-  - Mês
-  - Conta (`account_id`)
+![Página 1](https://github.com/leticiaholsback/teste-lcgbr-leticia-/raw/c6734c0d775b1553a374f1ed40a10d8cd8d961cd/LCGBR_leticia_pag1.jpg)
 
-🔗 **Acesse o dashboard aqui:** [Dashboard no Looker Studio](https://lookerstudio.google.com/reporting/https://lookerstudio.google.com/s/lr19b-UNOIQ)
+### 🖼️ Página 2 do Dashboard
 
+![Página 2](https://github.com/leticiaholsback/teste-lcgbr-leticia-/raw/c6734c0d775b1553a374f1ed40a10d8cd8d961cd/LCGBR_leticis_pag2.jpg)
 
 ---
 
